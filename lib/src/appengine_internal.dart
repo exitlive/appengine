@@ -130,6 +130,7 @@ void useLoggingPackageAdaptor() {
 /// returns a new [ContextRegistry] which is used for registering in-progress
 /// http requests.
 Future<ContextRegistry> _initializeAppEngine() async {
+  print('get zone');
   var zoneId = await _getZoneInProduction();
   final isDevEnvironment = zoneId == null;
   zoneId ??= 'dev-machine';
@@ -174,17 +175,21 @@ Future<ContextRegistry> _initializeAppEngine() async {
   final Uri pubServeUrl =
       pubServeUrlString != null ? Uri.parse(pubServeUrlString) : null;
 
+  print('get instance');
   final instanceId = await _getInstanceid();
 
   final context = new AppengineContext(isDevEnvironment, projectId, versionId,
       serviceId, instance, instanceId, pubServeUrl);
 
   final serviceAccount = _obtainServiceAccountCredentials(gcloudKey);
+  print('get logger factory');
   final loggerFactory =
       await _obtainLoggerFactory(context, serviceAccount, zoneId);
+  print('get storage service');
   final storageService =
       await _obtainStorageService(context.applicationID, serviceAccount);
 
+  print('get datastore service');
   final dbService = await _obtainDatastoreService(
       context.applicationID, dbEmulatorHost, serviceAccount);
 
