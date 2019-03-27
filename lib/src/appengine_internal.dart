@@ -98,10 +98,15 @@ Future runAppEngine(void handler(HttpRequest request, ClientContext context),
 
 Future _withAppEngineServicesInternal(
     Future callback(ContextRegistry contextRegistry)) {
+  print('starting fork');
   return ss.fork(() async {
+    print('forked');
+    print('Initializing app engine');
     ContextRegistry contextRegistry = await _initializeAppEngine();
+    print('new background services');
     final bgServices = contextRegistry.newBackgroundServices();
 
+    print('registering services');
     db.registerDbService(bgServices.db);
     datastore.registerDatastoreService(bgServices.db.datastore);
     storage.registerStorageService(bgServices.storage);
