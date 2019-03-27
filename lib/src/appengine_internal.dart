@@ -340,7 +340,7 @@ Future<String> _getMetadataValue(String path) async {
     var response = await client.get(
         'http://metadata.google.internal/computeMetadata/v1/instance/$path',
         headers: {'Metadata-Flavor': 'Google'});
-    print('Got response');
+    print('Got response. Status code: ${response.statusCode}');
     if (response.statusCode == HttpStatus.ok) {
       return p.split(response.body).last;
     }
