@@ -185,8 +185,8 @@ Future<ContextRegistry> _initializeAppEngine() async {
   final storageService =
       await _obtainStorageService(context.applicationID, serviceAccount);
 
-  final memcacheService =
-      await _obtainMemcacheInstance(loggerFactory.newBackgroundLogger());
+  final memcacheService = null;
+  //    await _obtainMemcacheInstance(loggerFactory.newBackgroundLogger());
   final dbService = await _obtainDatastoreService(
       context.applicationID, dbEmulatorHost, serviceAccount);
 
