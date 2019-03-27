@@ -132,6 +132,7 @@ void useLoggingPackageAdaptor() {
 Future<ContextRegistry> _initializeAppEngine() async {
   print('get zone');
   var zoneId = await _getZoneInProduction();
+  print('got zone');
   final isDevEnvironment = zoneId == null;
   zoneId ??= 'dev-machine';
   final bool isProdEnvironment = !isDevEnvironment;
@@ -334,9 +335,12 @@ Future<String> _getInstanceid() => _getMetadataValue('id');
 Future<String> _getMetadataValue(String path) async {
   final client = new http.Client();
   try {
+    print(
+        'Starting request to http://metadata.google.internal/computeMetadata/v1/instance/$path');
     var response = await client.get(
         'http://metadata.google.internal/computeMetadata/v1/instance/$path',
         headers: {'Metadata-Flavor': 'Google'});
+    print('Got response');
     if (response.statusCode == HttpStatus.ok) {
       return p.split(response.body).last;
     }
