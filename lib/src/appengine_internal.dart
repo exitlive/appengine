@@ -55,9 +55,12 @@ Future runAppEngine(void handler(HttpRequest request, ClientContext context),
     void onError(Object e, StackTrace s),
     {int port: 8080, bool shared: false}) {
   return _withAppEngineServicesInternal((ContextRegistry contextRegistry) {
+    print("Int 1");
     var appengineServer =
         new AppEngineHttpServer(contextRegistry, port: port, shared: shared);
+    print("Int 2");
     appengineServer.run((request, context) {
+      print("Int got request");
       ss.fork(() {
         logging.registerLoggingService(context.services.logging);
         handler(request, context);
@@ -97,6 +100,7 @@ Future runAppEngine(void handler(HttpRequest request, ClientContext context),
         });
       });
     });
+    print('Int 3');
     return appengineServer.done;
   });
 }
