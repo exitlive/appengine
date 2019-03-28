@@ -111,7 +111,7 @@ Future _withAppEngineServicesInternal(
     print('new background services');
     final bgServices = contextRegistry.newBackgroundServices();
 
-    print('registering services 2');
+    print('registering services 3');
     db.registerDbService(bgServices.db);
     print('registered services .... 1');
     datastore.registerDatastoreService(bgServices.db.datastore);
