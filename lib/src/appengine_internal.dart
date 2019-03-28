@@ -106,11 +106,15 @@ Future _withAppEngineServicesInternal(
     print('new background services');
     final bgServices = contextRegistry.newBackgroundServices();
 
-    print('registering services');
+    print('registering services 2');
     db.registerDbService(bgServices.db);
+    print('registered services .... 1');
     datastore.registerDatastoreService(bgServices.db.datastore);
+    print('registered services .... 2');
     storage.registerStorageService(bgServices.storage);
+    print('registered services .... 3');
     logging.registerLoggingService(bgServices.logging);
+    print('registered services');
 
     return callback(contextRegistry);
   });
