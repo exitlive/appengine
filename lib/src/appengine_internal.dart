@@ -39,7 +39,12 @@ bool _loggingPackageEnabled = false;
 /// Runs the given [callback] inside a new service scope and makes AppEngine
 /// services available within that scope.
 Future withAppEngineServices(Future callback()) =>
-    _withAppEngineServicesInternal((_) => callback());
+    _withAppEngineServicesInternal((_) {
+      print('Received callback');
+
+      print('Calling $callback now');
+      return callback();
+    });
 
 /// Runs the AppEngine http server and uses the given request [handler] to
 /// handle incoming http requests.
